@@ -1,0 +1,11 @@
+name: Take
+main: com.modcrafting.take.Take
+version: 0.1
+website: http://modcrafting.com
+author: Deathmarine
+description: >
+             Take Items
+commands:
+  take:
+    description: Command Access
+    usage: /<command> <player> <item> [amount [data]]
