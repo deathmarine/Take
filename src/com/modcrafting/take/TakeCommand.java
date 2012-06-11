@@ -16,27 +16,33 @@ public class TakeCommand implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 		if(sender instanceof Player){
-			if(!((Player) sender).isOp()) sender.sendMessage(ChatColor.RED + "You do not have permission to do that.");
-			return true;
+			if(!((Player) sender).isOp()){
+				sender.sendMessage(ChatColor.RED + "You do not have permission to do that.");
+				return true;
+			}
 		}
 		if ((args.length < 2) || (args.length > 4)) {
 			sender.sendMessage(ChatColor.RED + "Usage: /give <player> <item> [amount [data]]");
 			return false;
 		}
-		Player player = plugin.getServer().getPlayer(args[0]);
+		Player player = plugin.getServer().getPlayerExact(args[0]);
 		if (player != null) {
 		int amount = 1;
 		short data = 0;
 		if (args.length >= 3) {
 			try {
 				amount = Integer.parseInt(args[2]);
-			} catch (NumberFormatException ex) {}
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+			}
 			if (amount < 1) amount = 1;
 			if (amount > 64) amount = 64;
 			if (args.length >= 4) {
 				try {
 					data = Short.parseShort(args[3]);
-				} catch (NumberFormatException ex) {}
+				} catch (NumberFormatException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 		ItemStack item = new ItemStack(Integer.parseInt(args[1].trim()), amount, data);
